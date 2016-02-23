@@ -1,0 +1,28 @@
+<ion-view view-title="Nuevo Usuario">
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="padding">
+    <form name="signUpForm" novalidate>
+      <div class="list card padding" style="text-align: center;">
+          <button class=" item button button-light button-outline padding">
+            <img src="img/business-man.svg" style="width: 100px;" class="logo padding">
+          </button>
+          <label class="item item-input item-floating-label">
+              <span class="input-label">email</span>
+              <input ng-model="authCtrl.signup_user.email" type="email" placeholder="email" required="true"/>
+          </label>
+          <label class="item item-input item-floating-label">
+              <span class="input-label">Contraseña</span>
+              <input ng-model="authCtrl.signup_user.pwd" type="password" placeholder="Contraseña" required="true" />
+          </label>
+          <label class="item item-input item-floating-label">
+              <span class="input-label">Alias</span>
+              <input ng-model="authCtrl.signup_user.alias" type="text" placeholder="Alias" required="true" />
+          </label>
+      </div>
+    </form>
+      <button class="button button-block button-outline button-positive" ng-click="authCtrl.cancelSignUp()" >Cancelar</button>
+      <button class="button button-block button-positive" ng-disabled="!signUpForm.$valid" ng-click="authCtrl.createUser(authCtrl.signup_user)">Crear</button>
+  </ion-content>
+</ion-modal-view>

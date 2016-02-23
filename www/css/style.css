@@ -1,0 +1,20 @@
+/* Empty. Add your own CSS if you like */
+.logo  {
+  width: 150px;
+}
+
+.logoText {
+	_display: inline;
+	position: relative;
+	font: 60px Helvetica, Sans-Serif;
+	letter-spacing: -4px;
+	color: rgba(54,108,160,0.9);
+  font-weight: bold;
+}
+
+.logoText:after {
+	content: "AM Talk";
+	position: absolute; left: 80px; top: 0px;
+	color: rgba(9,29,60,0.2);
+
+}

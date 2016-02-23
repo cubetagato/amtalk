@@ -1,0 +1,26 @@
+<ion-view view-title="Login">
+    <ion-content class="padding">
+        <div class="list" style="text-align: center;">
+            <img src="img/amtalk.svg" class="logo padding">
+            <div class="logoText">AMTalk</div>
+        </div>
+        <div class="list card padding list-inset">
+            <label class="item item-input">
+                <i class="icon ion-person placeholder-icon"></i>
+                <input type="email" placeholder="user@email.com" ng-model="authCtrl.signin_user.email">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-key placeholder-icon"></i>
+                <input type="password" placeholder="Contraseña" ng-model="authCtrl.signin_user.pwd">
+            </label>
+            <button ng-click="authCtrl.signIn(authCtrl.signin_user)" class="button button-block button-positive activated">
+                Entrar
+            </button>
+        </div>
+        <div class="list" style="text-align:center">
+            <button ui-sref="auth-up" class="button button-small button-outline icon-left ion-person-add button-positive">
+                Crear Nuevo Usuario
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
