@@ -20,18 +20,20 @@
 
         var ref = new Firebase('https://amtalk.firebaseio.com/');
 
-        FAuthService.$authWithPassword({
+        FAuthService.ref().$authWithPassword({
           email: user.email,
           password: user.pwd
         }).then(function(authData)  {
-          console.log(authData);
+          //console.log(authData);
           console.log('logged as ' + authData.uid);
           ref.child('users').child(authData.uid).once('value', function (snapshot)  {
             console.log(snapshot.val());
+            FAuthService.user = snapshot.val();
+            console.log(FAuthService.user);
             $ionicLoading.hide();
             $ionicPopup.alert({
               title: 'AMTalk',
-              template: 'Bienvenido ' + snapshot.val().alias
+              template: '<center>Bienvenido ' + snapshot.val().alias + '</center>'
             }).then(function(res) {
               console.log('Autenticación correcta');
               $state.go('tab.chats');
@@ -58,7 +60,7 @@
       $ionicLoading.show({template: 'Cargando...'});
       var ref = new Firebase('https://amtalk.firebaseio.com/');
       if(user && user.email && user.pwd && user.alias) {
-        FAuthService.$createUser({
+        FAuthService.ref().$createUser({
           email: user.email,
           password: user.pwd
         }).then(function(userData)  {
@@ -67,7 +69,7 @@
             email: user.email,
             alias: user.alias
           });
-          
+
           $ionicPopup.alert({
             title: 'AMTalk',
             template: 'Usuario creado correctamente.'

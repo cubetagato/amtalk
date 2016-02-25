@@ -12,7 +12,7 @@
           controllerAs: 'authCtrl',
           resolve:  {
             'currentAuth': ['FAuthService', function (FAuthService) {
-              return FAuthService.$waitForAuth();
+              return FAuthService.ref().$waitForAuth();
             }]
           }
         })
@@ -30,7 +30,7 @@
           cache: false,
           resolve:  {
             'currentAuth': ['FAuthService', function (FAuthService) {
-              return FAuthService.$requireAuth();
+              return FAuthService.ref().$requireAuth();
             }]
           }
         })
@@ -48,14 +48,14 @@
           url: '/chats',
           views:  {
             'tab-chats':  {
-              templateUrl: 'js/components/chats/chats.view.html',
-              controller: 'ChatsController',
+              templateUrl: 'js/components/chats/amtalk.chats.view.html',
+              controller: 'ChatsListController',
               controllerAs: 'chatsCtrl'
             }
           }
         })
         .state('tab.chat',  {
-          url: '/chats/:user',
+          url: '/chats?:room&:user',
           views:  {
             'tab-chats':  {
               templateUrl: 'js/components/chats/amtalk.chats.chat.view.html',

@@ -3,9 +3,18 @@
 (function ()  {
 
   function authService ($firebaseAuth) {
+
+    var self = this;
+    this.USER = null;
+
     var ref = new Firebase('https://amtalk.firebaseio.com/');
     console.log('FAuthService Created...');
-    return $firebaseAuth(ref);
+    return {
+      ref: function ()  {
+        return $firebaseAuth(ref);
+      },
+      user: this.USER
+    }
   }
 
   angular

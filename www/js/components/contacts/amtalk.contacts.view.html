@@ -1,7 +1,7 @@
-<ion-view title="Contacts">
+<ion-view title="Contacts" ng-init="contactsCtrl.init()">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="contact in contactsCtrl.contacts" class="item-avatar item-icon-right" ui-sref="tab.chat">
+      <ion-item ng-repeat="contact in contactsCtrl.contacts" class="item-avatar item-icon-right" ng-click="contactsCtrl.createRoom(contact)">
         <img src="img/business-man.svg" />
         <h2>{{contact.alias}}</h2>
         <p>{{contact.email}}</p>

@@ -1,30 +1,31 @@
 
-  <ion-view title="Chat">
+  <ion-view title="Chat" ng-init="chatCtrl.init()">
     <ion-nav-buttons side="primary">
       <button class="button button-clear button-positive" ui-sref="tab.chats">Chats</button>
     </ion-nav-buttons>
     <ion-content>
-      <div class="message-list">
-        <div ng-repeat="message in messages" class="message-wraper">
+      <div class="message-list chat">
+        <div ng-repeat="message in chatCtrl.messages" class="item message-wraper">
           <div class="message" ng-class-even="'message-mine'" ng-class-odd="'message-other'">
             <div class="message-text">{{message.text}}</div>
-            <span class="message-time">{{message.time}}</span>
+            <span class="message-time message-timestamp">{{message.timestamp | date: 'dd/MM/yyyy - HH:mm:ss'}}</span>
+            <p>{{message.mine}}</p>
           </div>
         </div>
       </div>
     </ion-content>
     <ion-footer-bar keyboard-attach class="bar-stable footer-chat item-input-inset">
-      <button class="button button-clear button-icon button-positive icon ion-ios-upload-outline"></button>
+      <!-- button class="button button-clear button-icon button-positive icon ion-ios-upload-outline"></button -->
       <label class="item-input-wrapper">
-        <input ng-model="message" dir="auto" type="text" />
+        <input ng-model="chatCtrl.message" dir="auto" type="text" placeholder="message" />
       </label>
-      <span ng-if="message.length > 0">
-        <button ng-click="chat.sendMessage()" class="button button-clear button-positive">Send</button>
+      <span>
+        <button ng-disabled="(chatCtrl.message.length < 1)" ng-click="chatCtrl.sendMessage()" class="button button-clear button-positive">Send</button>
       </span>
-      <span ng-if="!chat.message || chat.message.length === 0">
+      <!--span ng-if="!chat.message || chat.message.length === 0">
         <button class="button button-clear button-icon button-positive icon ion-ios-camera-outline"></button>
         <i class="buttons-seperator icon ion-android-more-vertical"></i>
         <button class="button button-clear button-icon button-positive icon ion-ios-mic-outline"></button>
-      </span>
+      </span-->
     </ion-footer-bar>
   </ion-view>

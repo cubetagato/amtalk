@@ -3,6 +3,6 @@
 (function ()  {
   angular
     .module('amtalk.chats', [
-
+      'firebase'
     ]);
 })();

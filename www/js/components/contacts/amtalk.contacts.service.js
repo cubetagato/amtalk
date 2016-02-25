@@ -2,15 +2,17 @@
 
 (function ()  {
 
-  function contactsService ($firebaseArray) {
+  function contactsService ($firebaseArray, FAuthService) {
     var ref = new Firebase('https://amtalk.firebaseio.com/');
-    var contacts = $firebaseArray(ref.child('users'));
+    //var contacts = $firebaseArray(ref.child('users'));
+    var self = this;
+    var contacts = [];
     //console.log(contacts);
 
+    
+
     return  {
-      all: function ()  {
-        return contacts;
-      },
+      all: contacts,
       get: function (contactId)  {
         return contacts.$getRecord(contactId);
       }
@@ -21,6 +23,7 @@
     .module('amtalk.contacts')
     .factory ('AMTContactsService', [
       '$firebaseArray',
+      'FAuthService',
       contactsService
     ]);
 

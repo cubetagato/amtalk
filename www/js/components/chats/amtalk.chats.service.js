@@ -1,39 +1,106 @@
 'use strict';
 
 (function ()  {
-  function chatService ($firebaseArray)  {
+  function chatService ($firebaseArray, $firebaseObject, FAuthService)  {
 
+    var self = this;
+    //var rooms = $firebaseArray(ref.child('rooms'));
+    var userRooms = [];
+    var roomMessages = [];
 
-    var rooms = $firebaseArray(ref.child('rooms'));
+    function getMessages (room) {
+      var ref = new Firebase ('https://amtalk.firebaseio.com/messages');
 
-    function getRoom (from, to) {
-      var ref = new Firebase ('https://amtalk.firebaseio.com/' + 'chats/' + from.email)
-        .startAt(to.email)
-        .endAt(to.email)
-        .once('value', function (snap)  {
-          console.log(snap.value);
-        }).catch (function (err)  {
-          console.log(err);
-        });
-      
+      ref
+        .orderByChild('room')
+        .startAt(room)
+        .endAt(room)
+        .once ('value', function (snap)  {
+        //console.log('once');
+        //console.log(snap.val());
+        //roomMessages = snap.val();
+        //console.log(roomMessages);
+        return snap.val();
+      });
+
+      /*ref
+        .orderByChild('room')
+        .startAt(room)
+        .endAt(room)
+        .on('value', function (snap)  {
+          console.log(on);
+          console.log(snap.val());
+          userRooms.push(snap.val());
+        });*/
+
     }
 
-
-    function createRoom (from, to)  {
-      var room =  {
-        from: from.uid,
-        to: to.email,
-        title: to.alias,
-        date: new Date ()
-      }
-
-      rooms.$add(room).then (function (data)  {
-        console.log("Room created");
-        console.log(data);
+    function sendMessage(room, message, source)  {
+      var ref = new Firebase ('https://amtalk.firebaseio.com/messages');
+      var time = new Date ().getTime();
+      ref.child(time).set({
+        room: room,
+        timestamp: time,
+        message: message,
+        source: source
+      }, function ()  {
+        console.log('sended');
       });
     }
 
+    function lookRoom(members)  {
 
+      var ref = new Firebase ('https://amtalk.firebaseio.com/rooms/');
+
+      ref.orderByChild('members').on('value', function (snap) {
+        snap.forEach(function (room)  {
+          angular.forEach(room.child('members').val(), function (member, mkey) {
+            if (member === FAuthService.user.email) {
+              userRooms.push($firebaseObject(new Firebase ('https://amtalk.firebaseio.com/rooms/' + room.key())));
+            }
+          });
+        });
+      });
+
+    }
+
+    function searchRoom(members)  {
+
+
+    }
+
+    function createRoom (members)  {
+
+      var ref = new Firebase ('https://amtalk.firebaseio.com/rooms');
+
+      console.log(members);
+
+      var id = new Date ().getTime();
+      ref.child(id).child('members').push(FAuthService.user.email);
+      ref.child(id).child('members').push(members);
+
+      return id;
+
+    }
+
+    return {
+      createRoom: createRoom,
+      lookRoom: lookRoom,
+      rooms: function ()  {
+        return userRooms;
+      },
+      sendMessage: sendMessage,
+      getMessages: getMessages
+    }
 
   }
+
+  angular
+    .module('amtalk.chats')
+    .factory('AMTChatsService', [
+      '$firebaseArray',
+      '$firebaseObject',
+      'FAuthService',
+      chatService
+    ])
 })();
