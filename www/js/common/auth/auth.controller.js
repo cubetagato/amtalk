@@ -1,7 +1,7 @@
 'use strict';
 
 (function ()  {
-  function authController ($state, $ionicLoading, $ionicPopup, FAuthService)  {
+  function authController ($scope, $state, $ionicLoading, $ionicPopup, $ionicHistory, FAuthService)  {
 
     var self = this;
 
@@ -11,6 +11,12 @@
     self.cancelSignUp = cancelSignUp;
     self.createUser = createUser;
     self.signIn = signIn;
+
+    $scope.$on('$ionicView.beforeEnter', function ()  {
+      $ionicHistory.clearHistory();
+      $ionicHistory.clearCache();
+      console.log('Cleaned');
+    });
 
     function signIn (user)  {
       if(user && user.email && user.pwd)  {
@@ -96,9 +102,11 @@
   angular
     .module('auth')
     .controller ('AuthController',  [
+      '$scope',
       '$state',
       '$ionicLoading',
       '$ionicPopup',
+      '$ionicHistory',
       'FAuthService',
       authController
     ]);

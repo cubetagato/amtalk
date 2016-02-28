@@ -28,33 +28,37 @@
 }
 
 .chat {
-  background-image: url(/chat-background.jpg);
+  background-image: none;
   background-color: #E0DAD6;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 
 .message-list {
-  margin-top: 12px;
-  padding: 0 5%;
+  margin-top: 0px;
+  padding: 0px 0px;
 }
 
 .message-wrapper {
-  margin-bottom: 9px;
+  margin-bottom: 0px;
+  background-color: transparent;
+  border: solid 0px black;
+  padding: 6px;
+}
 
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+.message-wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .message {
   display: inline-block;
   position: relative;
-  max-width: 236px;
+  max-width: 90%;
   border-radius: 7px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  white-space: normal;
 }
   .message.message-mine {
     float: right;
@@ -87,14 +91,13 @@
     background-image: url(/message-mine.png)
   }
 
-  .text {
+  .message-text {
     padding: 5px 7px;
     word-wrap: break-word;
 
-
   }
 
-  .text::after {
+  .message-text::after {
     content: " \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
     display: inline;
   }
@@ -115,6 +118,10 @@
     right: 7px;
     color: gray;
     font-size: 12px;
+  }
+
+  .scroll-content-chat  {
+    background-color: #E0DAD6;
   }
 
 .footer-chat {

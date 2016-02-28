@@ -6,6 +6,7 @@
 angular.module('amtalk', [
   'ionic',
   'auth',
+  'angularMoment',
   'amtalk.contacts',
   'amtalk.chats'
 ])

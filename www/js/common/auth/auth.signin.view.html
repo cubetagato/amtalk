@@ -5,15 +5,17 @@
             <div class="logoText">AMTalk</div>
         </div>
         <div class="list card padding list-inset">
+          <form name="signInForm" novalidate>
             <label class="item item-input">
                 <i class="icon ion-person placeholder-icon"></i>
-                <input type="email" placeholder="user@email.com" ng-model="authCtrl.signin_user.email">
+                <input type="email" placeholder="user@email.com" ng-model="authCtrl.signin_user.email" required="true">
             </label>
             <label class="item item-input">
                 <i class="icon ion-key placeholder-icon"></i>
-                <input type="password" placeholder="Contraseña" ng-model="authCtrl.signin_user.pwd">
+                <input type="password" placeholder="Contraseña" ng-model="authCtrl.signin_user.pwd" required="true">
             </label>
-            <button ng-click="authCtrl.signIn(authCtrl.signin_user)" class="button button-block button-positive activated">
+          </form>
+            <button ng-disabled="!signInForm.$valid" ng-click="authCtrl.signIn(authCtrl.signin_user)" class="button button-block button-positive activated">
                 Entrar
             </button>
         </div>

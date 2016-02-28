@@ -55,7 +55,7 @@
           }
         })
         .state('tab.chat',  {
-          url: '/chats?:room&:user',
+          url: '/chats?:room',
           views:  {
             'tab-chats':  {
               templateUrl: 'js/components/chats/amtalk.chats.chat.view.html',

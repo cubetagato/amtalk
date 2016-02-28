@@ -5,11 +5,10 @@
     </ion-nav-buttons>
     <ion-content>
       <div class="message-list chat">
-        <div ng-repeat="message in chatCtrl.messages" class="item message-wraper">
-          <div class="message" ng-class-even="'message-mine'" ng-class-odd="'message-other'">
+        <div ng-repeat="message in chatCtrl.messages" class="item message-wrapper">
+          <div class="message" ng-class="message.mine ? 'message-mine' : 'message-other'" >
             <div class="message-text">{{message.text}}</div>
-            <span class="message-time message-timestamp">{{message.timestamp | date: 'dd/MM/yyyy - HH:mm:ss'}}</span>
-            <p>{{message.mine}}</p>
+            <span class="message-time message-timestamp">{{message.timestamp | calendar}}</span>
           </div>
         </div>
       </div>

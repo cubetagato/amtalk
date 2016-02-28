@@ -2,39 +2,32 @@
 
 (function ()  {
 
-  function contactsController ( $firebaseArray, $state, AMTChatsService, FAuthService) {
+  function contactsController ( $scope, $firebaseArray, $state, $ionicLoading, AMTChatsService, FAuthService) {
 
     var self = this;
 
     self.contacts = [];
-    self.x = [];
 
-    self.createRoom = createRoom;
+    console.log('contacts controller ok');
+
+    //self.createRoom = createRoom;
     self.init = init;
 
-    function init ()  {
-      //console.log('FAuthService.user: ');
-      //console.log(FAuthService.user);
+    //$scope.$on('$ionicView.beforeEnter', function ()  {
+    //  if (self.contacts.length == 0)
+    //    init();
+    //});
 
+    function init ()  {
+
+      $ionicLoading.show({
+        template: 'Cargando contactos...'
+      });
+
+      console.log('contacts controller init');
       var ref = new Firebase('https://amtalk.firebaseio.com/users');
 
-      var cf = $firebaseArray(ref);
-
-      /*cf.$loaded()
-        .then(function (cfl) {
-          console.log(cfl);
-          cfl.forEach(function (c)  {
-            console.log(c);
-            if (c.email !== FAuthService.user.email ) {
-              console.log('Agregar');
-              self.contacts.push(c);
-            } else {
-              console.log('NO');
-            }
-          });
-
-        });*/
-
+      //var cf = $firebaseArray(ref);
 
       ref.on('child_added', function (childSnapshot, prevChildKey) {
 
@@ -48,54 +41,52 @@
         if (contact.email !== FAuthService.user.email) {
           self.contacts.push(contact);
         }
+
+        $ionicLoading.hide();
       });
     }
 
-    function createRoom(person) {
+    /*function createRoom(person) {
 
-      $firebaseArray(new Firebase ('https://amtalk.firebaseio.com/rooms/'))
-      .$loaded().then(function (rooms)  {
-        console.log(rooms);
-        var valid = true;
-        //rooms.forEach(function (room)  {
-        for (var j=0; j<rooms.length; j++)  {
-          for(var i=0; i<rooms[j].members.length; i++)  {
-            if(rooms[j].members[i] < 0) {
-              valid = false;
-              break;
-            }
+        $firebaseArray(new Firebase ('https://amtalk.firebaseio.com/rooms/'))
+          .$loaded()
+          .then(function (rooms) {
+
+            console.log(rooms);
+
+            var croom = null;
+
+            if (rooms.length > 0 )  {
+            rooms.forEach(function (room) {
+
+              var ms = [];
+
+              for (var key in room.members) {
+                ms.push(room.members[key]);
+              }
+
+              if (ms.indexOf(person.email) > -1 && ms.indexOf(FAuthService.user.email) > -1)  {
+                croom = room;
+              }
+            });
           }
-          break;
-        }
-        //});
 
-        if(valid) {
-          $state.go('tab.chat', {room: room.$id, user: FAuthService.user.email });
-        } else {
-          console.info('createRoom');
-          //console.log(person);
-          //var members = [];
-          //members.push(person.email);
-          var id = AMTChatsService.createRoom(person.email);
+          var id = (croom ? croom.$id : MTChatsService.createRoom(person.email));
           $state.go('tab.chat', {room: id, user: FAuthService.user.email});
-        }
 
-      });
+        });
 
-      /*console.info('createRoom');
-      console.log(person);
-      var members = [];
-      members.push(person.email);
-      AMTChatsService.createRoom(person.email);*/
-    }
+    }*/
 
   }
 
   angular
     .module('amtalk.contacts')
     .controller('ContactsController', [
-      '$firebaseObject',
+      '$scope',
+      '$firebaseArray',
       '$state',
+      '$ionicLoading',
       'AMTChatsService',
       'FAuthService',
       contactsController

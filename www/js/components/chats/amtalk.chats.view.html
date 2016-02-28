@@ -4,7 +4,7 @@
       <ion-item
         ng-repeat="room in chatsCtrl.rooms"
         class="item-avatar item-icon-right"
-        ui-sref="tab.chat({room: room.$id, user: 'gihernandez@indracompany.com'})">
+        ui-sref="tab.chat({room: room.$id})">
         <p ng-repeat="member in room.members">{{member}}</p>
         <i class="icon ion-chevron-right"></i>
       </ion-item>

@@ -50,17 +50,16 @@
 
     function lookRoom(members)  {
 
-      var ref = new Firebase ('https://amtalk.firebaseio.com/rooms/');
-
-      ref.orderByChild('members').on('value', function (snap) {
-        snap.forEach(function (room)  {
-          angular.forEach(room.child('members').val(), function (member, mkey) {
-            if (member === FAuthService.user.email) {
-              userRooms.push($firebaseObject(new Firebase ('https://amtalk.firebaseio.com/rooms/' + room.key())));
-            }
+      new Firebase ('https://amtalk.firebaseio.com/rooms/')
+        .on('child_added', function (snap) {
+          snap.forEach(function (room)  {
+            angular.forEach(room.child('members').val(), function (member, mkey) {
+              if (member === FAuthService.user.email) {
+                userRooms.push($firebaseObject(new Firebase ('https://amtalk.firebaseio.com/rooms/' + room.key())));
+              }
+            });
           });
         });
-      });
 
     }
 
