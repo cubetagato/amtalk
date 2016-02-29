@@ -10,7 +10,7 @@
 
     console.log('contacts controller ok');
 
-    //self.createRoom = createRoom;
+    self.createRoom = createRoom;
     self.init = init;
 
     //$scope.$on('$ionicView.beforeEnter', function ()  {
@@ -46,7 +46,7 @@
       });
     }
 
-    /*function createRoom(person) {
+    function createRoom(person) {
 
         $firebaseArray(new Firebase ('https://amtalk.firebaseio.com/rooms/'))
           .$loaded()
@@ -76,7 +76,7 @@
 
         });
 
-    }*/
+    }
 
   }
 
