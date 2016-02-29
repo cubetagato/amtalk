@@ -2,7 +2,7 @@
 
 (function ()  {
 
-  function contactsController ( $scope, $firebaseArray, $state, $ionicLoading, AMTChatsService, FAuthService) {
+  function contactsController ( $scope, $firebaseArray, $state, $ionicLoading, MTChatsService, FAuthService) {
 
     var self = this;
 

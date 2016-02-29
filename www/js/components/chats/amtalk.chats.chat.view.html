@@ -1,7 +1,7 @@
 
   <ion-view title="Chat" ng-init="chatCtrl.init()">
     <ion-nav-buttons side="primary">
-      <button class="button button-clear button-positive" ui-sref="tab.chats">Chats</button>
+      <button class="button button-clear button-positive" ng-show="chatCtrl.showChatsButton" ui-sref="tab.chats">Chats</button>
     </ion-nav-buttons>
     <ion-content>
       <div class="message-list chat">

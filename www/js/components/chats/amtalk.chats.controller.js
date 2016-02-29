@@ -2,7 +2,7 @@
 
 (function ()  {
 
-  function chatController ($ionicTabsDelegate, $stateParams, $ionicLoading, AMTChatsService, FAuthService)  {
+  function chatController ($ionicTabsDelegate, $stateParams, $ionicLoading, $ionicNavBarDelegate, AMTChatsService, FAuthService)  {
 
     var self = this;
 
@@ -10,6 +10,7 @@
     self.room = $stateParams.room;
     self.user = null;
     self.message = '';
+    self.showChatsButton = !$ionicNavBarDelegate.showBackButton();
 
     self.sendMessage = sendMessage;
     self.init = init;
@@ -17,6 +18,7 @@
     function init() {
       self.user = FAuthService.user;
       getMessages();
+      //self.showChatsButton = !$ionicNavBarDelegate.showBackButton();
     }
 
     function getMessages () {
@@ -41,8 +43,10 @@
           });
           //console.info(self.messages);
 
-          $ionicLoading.hide();
+
       });
+
+      $ionicLoading.hide();
 
     }
 
@@ -118,6 +122,7 @@
       '$ionicTabsDelegate',
       '$stateParams',
       '$ionicLoading',
+      '$ionicNavBarDelegate',
       'AMTChatsService',
       'FAuthService',
       chatController
